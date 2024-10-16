@@ -1,15 +1,15 @@
 package com.debnath.RideSafe.Entity;
 
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.debnath.RideSafe.Enum.PaymentMethod;
+import com.debnath.RideSafe.Enum.RideStatus;
+import jakarta.annotation.Nullable;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -28,17 +28,18 @@ public class RideRequest {
 
     private String dropLocation;
 
-    private String status;
+    private RideStatus status;
 
-    private Long riderId;
+    private User rider;
 
-    private Long userId;
+    private User user;
 
-    private int offeredPrice;
+    private Integer offeredPrice;
 
-    private int acceptedPrice;
+    @Nullable
+    private Integer acceptedPrice;
 
-    private Date timestamp;
+    private LocalDateTime timestamp;
 
-    private Long paymentId;
+    private PaymentMethod paymentmethod;
 }

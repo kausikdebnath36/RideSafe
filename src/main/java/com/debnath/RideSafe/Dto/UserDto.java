@@ -1,5 +1,6 @@
 package com.debnath.RideSafe.Dto;
 
+import com.debnath.RideSafe.Enum.Role;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,20 +16,19 @@ public class UserDto {
 
     private String emailId;
 
-    private String role;
+    private Role role;
 
-    private Long riderId;
+
 
     private String imagePath;
 
 
-    public UserDto(Long userId, String name, Long mobileNumber, String emailId, String role, Long riderId, String imagePath) {
+    public UserDto(Long userId, String name, Long mobileNumber, String emailId, Role role, String imagePath) {
         this.userId = userId;
         this.name = name;
         this.mobileNumber = mobileNumber;
         this.emailId = emailId;
         this.role = role;
-        this.riderId = riderId;
         this.imagePath = imagePath;
     }
 }

@@ -1,5 +1,9 @@
 package com.debnath.RideSafe.Dto;
 
+import com.debnath.RideSafe.Entity.User;
+import com.debnath.RideSafe.Enum.RideStatus;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,11 +18,12 @@ public class RideRequestDto {
 
     private String dropLocation;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private RideStatus status;
 
-    private Long riderId;
+    private User riderId;
 
-    private Long userId;
+    private User userId;
 
     private int offeredPrice;
 
@@ -28,7 +33,7 @@ public class RideRequestDto {
 
     private Long paymentId;
 
-    public RideRequestDto(Long id, String pickUpLocation, String dropLocation, String status, Long riderId, Long userId, int offeredPrice, int acceptedPrice, Date timestamp, Long paymentId) {
+    public RideRequestDto(Long id, String pickUpLocation, String dropLocation, RideStatus status, User riderId, User userId, int offeredPrice, int acceptedPrice, Date timestamp, Long paymentId) {
         this.id = id;
         this.pickUpLocation = pickUpLocation;
         this.dropLocation = dropLocation;

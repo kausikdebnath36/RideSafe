@@ -11,7 +11,6 @@ public class UserMapper {
                 userDto.getMobileNumber(),
                 userDto.getEmailId(),
                 userDto.getRole(),
-                userDto.getRiderId(),
                 userDto.getImagePath());
 
         return user;
@@ -23,7 +22,6 @@ public class UserMapper {
                 user.getMobileNumber(),
                 user.getEmailId(),
                 user.getRole(),
-                user.getRiderId(),
                 user.getImagePath());
 
         return userDto;
