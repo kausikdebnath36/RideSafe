@@ -18,28 +18,40 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="tbltriderequest")
+@Table(name="Riderequest")
 public class RideRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name= "req_id")
     private Long id;
 
+    @Column(name= "pickup_location")
     private String pickUpLocation;
 
+    @Column(name= "mdrop_location")
     private String dropLocation;
 
+    @Column(name= "status",length = 255)
     private RideStatus status;
 
+    @ManyToOne
+    @JoinColumn(name = "driver_id",nullable = true)
+    private User driver;
+
+    @ManyToOne
+    @JoinColumn(name = "rider_id")
     private User rider;
 
-    private User user;
-
+    @Column(name= "offered_price",nullable = true)
     private Integer offeredPrice;
 
-    @Nullable
+
+    @Column(name= "accepted_price",nullable = true)
     private Integer acceptedPrice;
 
+    @Column(name= "request_time",nullable = true)
     private LocalDateTime timestamp;
 
+    @Column(name= "payment_Method",nullable = true)
     private PaymentMethod paymentmethod;
 }

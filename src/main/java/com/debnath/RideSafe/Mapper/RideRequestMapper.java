@@ -11,12 +11,12 @@ public class RideRequestMapper {
                 rideRequestDto.getPickUpLocation(),
                 rideRequestDto.getDropLocation(),
                 rideRequestDto.getStatus(),
+                rideRequestDto.getDriverId(),
                 rideRequestDto.getRiderId(),
-                rideRequestDto.getUserId(),
                 rideRequestDto.getOfferedPrice(),
                 rideRequestDto.getAcceptedPrice(),
                 rideRequestDto.getTimestamp(),
-                rideRequestDto.getPaymentId());
+                rideRequestDto.getPaymentmethod());
 
         return rideRequest;
     }
@@ -28,12 +28,12 @@ public class RideRequestMapper {
                 rideRequest.getPickUpLocation(),
                 rideRequest.getDropLocation(),
                 rideRequest.getStatus(),
-                rideRequest.getRiderId(),
-                rideRequest.getUserId(),
+                rideRequest.getDriver(),
+                rideRequest.getRider(),
                 rideRequest.getOfferedPrice(),
                 rideRequest.getAcceptedPrice(),
                 rideRequest.getTimestamp(),
-                rideRequest.getPaymentId());
+                rideRequest.getPaymentmethod());
 
         return rideRequestDto;
     }

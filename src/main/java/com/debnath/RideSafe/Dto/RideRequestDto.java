@@ -1,12 +1,14 @@
 package com.debnath.RideSafe.Dto;
 
 import com.debnath.RideSafe.Entity.User;
+import com.debnath.RideSafe.Enum.PaymentMethod;
 import com.debnath.RideSafe.Enum.RideStatus;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -21,28 +23,28 @@ public class RideRequestDto {
     @Enumerated(EnumType.STRING)
     private RideStatus status;
 
-    private User riderId;
+    private User driverId;
 
-    private User userId;
+    private User riderId;
 
     private int offeredPrice;
 
     private int acceptedPrice;
 
-    private Date timestamp;
+    private LocalDateTime timestamp;
 
-    private Long paymentId;
+    private PaymentMethod paymentmethod;
 
-    public RideRequestDto(Long id, String pickUpLocation, String dropLocation, RideStatus status, User riderId, User userId, int offeredPrice, int acceptedPrice, Date timestamp, Long paymentId) {
+    public RideRequestDto(Long id, String pickUpLocation, String dropLocation, RideStatus status, User driverId, User riderId, int offeredPrice, int acceptedPrice, LocalDateTime timestamp, PaymentMethod paymentmethod) {
         this.id = id;
         this.pickUpLocation = pickUpLocation;
         this.dropLocation = dropLocation;
         this.status = status;
+        this.driverId = driverId;
         this.riderId = riderId;
-        this.userId = userId;
         this.offeredPrice = offeredPrice;
         this.acceptedPrice = acceptedPrice;
         this.timestamp = timestamp;
-        this.paymentId = paymentId;
+        this.paymentmethod= paymentmethod;
     }
 }

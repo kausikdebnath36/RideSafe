@@ -12,7 +12,7 @@ public class UserDto {
 
     private String name;
 
-    private Long mobileNumber;
+    private String mobileNumber;
 
     private String emailId;
 
@@ -23,7 +23,7 @@ public class UserDto {
     private String imagePath;
 
 
-    public UserDto(Long userId, String name, Long mobileNumber, String emailId, Role role, String imagePath) {
+    public UserDto(Long userId, String name, String mobileNumber, String emailId, Role role, String imagePath) {
         this.userId = userId;
         this.name = name;
         this.mobileNumber = mobileNumber;

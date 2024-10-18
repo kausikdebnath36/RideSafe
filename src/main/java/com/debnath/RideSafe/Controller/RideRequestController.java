@@ -6,6 +6,10 @@ import com.debnath.RideSafe.Enum.PaymentMethod;
 import com.debnath.RideSafe.Enum.RideStatus;
 import com.debnath.RideSafe.Repository.RideRequestRepository;
 import com.debnath.RideSafe.Repository.UserRepository;
+import com.debnath.RideSafe.Service.Impl.RideRequestServiceImpl;
+import com.debnath.RideSafe.Service.RideRequestService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -15,36 +19,51 @@ import java.util.List;
 @RequestMapping("/api/rides")
 public class RideRequestController {
 
-    private final RideRequestRepository rideRequestRepository;
-    private final UserRepository userRepository;
+   private String status=null;
 
-    public RideRequestController(RideRequestRepository rideRequestRepository, UserRepository userRepository) {
-        this.rideRequestRepository = rideRequestRepository;
-        this.userRepository = userRepository;
+    private RideRequestService rideRequestService;
+
+    @Autowired
+    public RideRequestController(RideRequestService rideRequestService) {
+        this.rideRequestService = rideRequestService;
     }
 
     // Rider requesting a ride
     @PostMapping("/request")
     public RideRequest requestRide(@RequestParam Long riderId, @RequestParam String pickupLocation, @RequestParam String dropoffLocation, @RequestParam int offeredPrice) {
-        User rider = userRepository.findById(riderId).orElseThrow();
-        RideRequest rideRequest = new RideRequest(null, pickupLocation, dropoffLocation,RideStatus.REQUESTED, null, rider,offeredPrice,null, LocalDateTime.now(), PaymentMethod.CASH);
-        return rideRequestRepository.save(rideRequest);
+        RideRequest newRequest= rideRequestService.createRideRequest(riderId,pickupLocation,dropoffLocation,offeredPrice);
+                return newRequest;
     }
 
     // Driver accepting a ride
     @PostMapping("/accept")
-    public RideRequest acceptRide(@RequestParam Long driverId, @RequestParam Long rideId) {
-        User driver = userRepository.findById(driverId).orElseThrow();
-        RideRequest ride = rideRequestRepository.findById(rideId).orElseThrow();
-        ride.setRider(driver);
-        ride.setStatus(RideStatus.ACCEPTED);
-        return rideRequestRepository.save(ride);
+    public RideRequest acceptRide(@RequestParam Long driverId, @RequestParam Long reqId) {
+
+        return rideRequestService.acceptRideRequest(driverId,reqId);
     }
+
+    //Driver offering a different price
+    @PostMapping("/bargain")
+    @Async
+    public RideRequest bargain(@RequestParam Long driverId, @RequestParam Long reqId,@RequestParam int driverOfferedPrice) {
+        return rideRequestService.bargainRideRequest(driverId,reqId,driverOfferedPrice);
+
+    }
+
+    @PostMapping("/acceptreq")
+    private void acceptRidebargain() {
+        status="ACCEPTED";
+    }
+
 
     // View all pending ride requests
     @GetMapping("/pending")
     public List<RideRequest> getPendingRides() {
-        return rideRequestRepository.findByStatus(RideStatus.REQUESTED);
-    }
-}
 
+        return rideRequestService.getPendingRequest();
+    }
+
+
+
+
+}
